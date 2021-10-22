@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const { WrapperBuilder } = require("redstone-flash-storage");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,12 +15,21 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const RedStoneOracle = await hre.ethers.getContractFactory("RedStoneOracle");
+  let redstone = await RedStoneOracle.deploy();
 
-  await greeter.deployed();
+  await redstone.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("RedStoneOracleTest deployed to:", redstone.address);
+
+  redstone = WrapperBuilder
+      .wrapLite(redstone)
+      .usingPriceFeed("redstone-stocks");
+
+  await redstone.authorizeProvider();
+  const lastPrice = await redstone.getPrice('TSLA');
+
+  console.log("LastPrice", lastPrice);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
