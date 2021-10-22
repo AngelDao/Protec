@@ -15,8 +15,8 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const RedStoneTest = await hre.ethers.getContractFactory("RedStoneOracleTest");
-  let redstone = await RedStoneTest.deploy();
+  const RedStoneOracle = await hre.ethers.getContractFactory("RedStoneOracle");
+  let redstone = await RedStoneOracle.deploy();
 
   await redstone.deployed();
 
@@ -26,11 +26,8 @@ async function main() {
       .wrapLite(redstone)
       .usingPriceFeed("redstone-stocks");
 
-  //await redstone.authorizeSigner("0x926E370fD53c23f8B71ad2B3217b227E41A92b12");
   await redstone.authorizeProvider();
-  await redstone.getPrice();
-
-  const lastPrice = await redstone.commodityLastPrice();
+  const lastPrice = await redstone.getPrice('TSLA');
 
   console.log("LastPrice", lastPrice);
 }
