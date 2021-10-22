@@ -18,7 +18,7 @@ const App = () => {
     (async () => {
       if (!account.metamaskProvider) {
         const provider = connectProvider();
-        setAccount({ ...account, metamaskProvider: provider });
+        setAccount({ metamaskProvider: provider });
       }
     })();
   }, [account]);
