@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const { WrapperBuilder } = require("redstone-flash-storage");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -15,12 +16,18 @@ async function main() {
 
   // We get the contract to deploy
   const RedStoneTest = await hre.ethers.getContractFactory("RedStoneOracleTest");
-  const redstone = await RedStoneTest.deploy();
+  let redstone = await RedStoneTest.deploy();
 
   await redstone.deployed();
 
   console.log("RedStoneOracleTest deployed to:", redstone.address);
 
+  redstone = WrapperBuilder
+      .wrapLite(redstone)
+      .usingPriceFeed("redstone-stocks");
+
+  //await redstone.authorizeSigner("0x926E370fD53c23f8B71ad2B3217b227E41A92b12");
+  await redstone.authorizeProvider();
   await redstone.getPrice();
 
   const lastPrice = await redstone.commodityLastPrice();
