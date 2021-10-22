@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import CredentialsContext from "../../context/credentialsContext";
 
 const Layout = () => {
-  return <div />;
+  const { handleConnectWallet } = useContext(CredentialsContext);
+  return (
+    <div>
+      test
+      <button onClick={() => handleConnectWallet()}>Connect Wallet</button>
+    </div>
+  );
 };
 
 export default Layout;
