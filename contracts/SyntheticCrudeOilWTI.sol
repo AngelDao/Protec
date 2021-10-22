@@ -10,4 +10,8 @@ contract SyntheticCrudeOilWTI is ERC20, Ownable {
     function mint(address _addr, uint _amount) public onlyOwner {
 	    _mint(_addr, _amount);
     }
+
+    function getPrice() public pure returns (uint) {
+        return 3;
+    }
 }
