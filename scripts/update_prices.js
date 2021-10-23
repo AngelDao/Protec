@@ -15,7 +15,7 @@ const updateItem = async(number) => {
     redstone = WrapperBuilder
         .wrapLite(redstone)
         .usingPriceFeed("redstone-stocks");
-    //await redstone.authorizeProvider({gasPrice:20});
+    await redstone.authorizeProvider({gasPrice:20});
     await redstone.getPrice(tickerArray[number], {gasPrice:200});
     console.log(`Updated price for ${tickerArray[number]};`);
 }

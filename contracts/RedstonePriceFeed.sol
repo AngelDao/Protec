@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "./IPriceFeed.sol";
 import "./RedStoneOracle.sol";
 
-contract IRedstonePriceFeed is IPriceFeed {
+contract RedstonePriceFeed is IPriceFeed {
     string public ticker;
     address public redstoneFeedAddress = 0x809C759f2b02575A4CC347Ee228Ccb7C75e0910f;
 
