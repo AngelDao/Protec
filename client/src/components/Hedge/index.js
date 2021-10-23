@@ -7,6 +7,8 @@ import {
   ButtonContainer,
 } from "./styles";
 import Dropdown from "../Dropdown";
+import optionsMetaData from "../../utils/optionsMetaData";
+
 const Hedge = () => {
   const { account, handleConnectWallet } = useContext(CredentialsContext);
 
@@ -17,6 +19,13 @@ const Hedge = () => {
     GAS: "GAS",
     CATTLE: "CATTLE",
   };
+
+  const strikeAndExpiry = [];
+
+  optionsMetaData.options.forEach((e) => {
+    const obj = { expiry: e.expiration, strikePrice: e.strikePrice / 10 ** 6 };
+    strikeAndExpiry.push(obj);
+  });
 
   return (
     <HedgeContainer>
@@ -40,8 +49,10 @@ const Hedge = () => {
           <Dropdown
             page={"hedge"}
             component={"strikePrice"}
-            options={{}}
+            options={strikeAndExpiry}
             initial={false}
+            type={"expiry"}
+            initialIndex={0}
           />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
             Amount of Underlying to buy in USDC
