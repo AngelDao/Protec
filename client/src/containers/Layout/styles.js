@@ -20,7 +20,7 @@ export const WalletContainer = styled.div`
   display: flex;
   position: absolute;
   right: 10px;
-  width: 200px;
+  width: 210px;
 `;
 
 export const Divider = styled.div`
