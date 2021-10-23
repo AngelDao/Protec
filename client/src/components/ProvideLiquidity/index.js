@@ -6,7 +6,7 @@ const ProvideLiquidity = () => {
   return (
     <PLContainer>
       <div style={{ width: "460px", marginBottom: "10px" }}>
-        <span style={{ fontSize: "20px" }}>Hedge With Calls</span>
+        <span style={{ fontSize: "20px" }}>Provide Liquidity</span>
       </div>
       <FormContainer>
         <ButtonContainer>

@@ -15,7 +15,7 @@ export const FormContainer = styled.div`
   border: 2px solid black;
   border-radius: 20px;
   position: relative;
-  padding: 10px;
+  padding: 25px;
 `;
 export const ButtonContainer = styled.div`
   position: absolute;
