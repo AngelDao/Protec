@@ -28,7 +28,7 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: `${process.env.MAINNET_URL}`
+        url: `${process.env.KOVAN_URL}`
       },
     },
     localhost: {
