@@ -1,6 +1,12 @@
 import React from "react";
+import { MenuItem } from "./styles";
+import { withRouter } from "react-router-dom";
 
-const Menu = () => {
+const Menu = ({ history, location }) => {
+  const changeRoute = (route) => {
+    history.push(route);
+  };
+
   return (
     <div
       style={{
@@ -13,10 +19,17 @@ const Menu = () => {
         alignItems: "center",
       }}
     >
-      <span style={{ fontSize: "20px", marginRight: "20px" }}>Hedge</span>
-      <span style={{ fontSize: "20px" }}>Provide Liquidity</span>
+      <MenuItem
+        onClick={() => changeRoute("/hedge")}
+        style={{ marginRight: "20px" }}
+      >
+        Hedge
+      </MenuItem>
+      <MenuItem onClick={() => changeRoute("/provide-liquidity")}>
+        Provide Liquidity
+      </MenuItem>
     </div>
   );
 };
 
-export default Menu;
+export default withRouter(Menu);

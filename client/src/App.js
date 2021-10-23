@@ -4,6 +4,9 @@ import Layout from "./containers/Layout";
 import { CredentialsProvider } from "./context/credentialsContext";
 import connectProvider from "./helpers/connectProvider";
 import connectWallet from "./helpers/connectWallet";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import history from "./utils/history";
 
 const App = () => {
   const [account, setAccount] = useState({});
@@ -23,14 +26,25 @@ const App = () => {
     })();
   }, [account]);
 
-  const credentials = { handleConnectWallet };
+  const credentials = { handleConnectWallet, account };
 
   return (
-    <CredentialsProvider value={credentials}>
-      <ChakraProvider>
-        <Layout />
-      </ChakraProvider>
-    </CredentialsProvider>
+    <Router history={history}>
+      <CredentialsProvider value={credentials}>
+        <ChakraProvider>
+          <Switch>
+            <Route
+              exact
+              path={["/hedge", "/provide-liquidity"]}
+              component={Layout}
+            />
+            <Route>
+              <Redirect to="/hedge" />
+            </Route>
+          </Switch>
+        </ChakraProvider>
+      </CredentialsProvider>
+    </Router>
   );
 };
 
