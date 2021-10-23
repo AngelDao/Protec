@@ -9,18 +9,9 @@ export const PLContainer = styled.div`
   align-items: center;
 `;
 
-export const MenuItem = styled.div`
-  font-size: 20px;
-  :hover {
-    background: black;
-    cursor: pointer;
-    color: white;
-  }
-`;
-
 export const FormContainer = styled.div`
   width: 500px;
-  height: 400px;
+  height: 410px;
   border: 2px solid black;
   border-radius: 20px;
   position: relative;

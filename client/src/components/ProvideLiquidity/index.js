@@ -1,89 +1,98 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import CredentialsContext from "../../context/credentialsContext";
 import { Button, FormContainer, PLContainer, ButtonContainer } from "./styles";
-import {
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-} from "@chakra-ui/react"
 import Dropdown from "../Dropdown";
-import { MenuItem } from "./styles";
+import optionsMetaData from "../../utils/optionsMetaData";
 
 const ProvideLiquidity = () => {
   const { account, handleConnectWallet } = useContext(CredentialsContext);
 
-  const [percentToRemove, setPercentToRemove] = useState(0);
-  const [display, setDisplay] = useState("Add");
+  const underlying = {
+    CORN: "CORN",
+    CHEESE: "CHEESE",
+    MILK: "MILK",
+    GAS: "GAS",
+    CATTLE: "CATTLE",
+  };
+
+  const strikeAndExpiry = [];
+
+  optionsMetaData.options.forEach((e) => {
+    const obj = { expiry: e.expiration, strikePrice: e.strikePrice / 10 ** 6 };
+    strikeAndExpiry.push(obj);
+  });
+
   return (
     <PLContainer>
       <div style={{ width: "460px", marginBottom: "10px" }}>
-        {display=="Add" ? 
-          <span style={{ fontSize: "20px" }}>Add Liquidity</span>
-          :
-          <span style={{ fontSize: "20px" }}>Remove Liquidity</span>
-        }
+        <span style={{ fontSize: "20px" }}>Provide Liquidity</span>
       </div>
       <FormContainer>
+        <div>
+          <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
+            Underlying
+          </span>
+          <Dropdown
+            page={"hedge"}
+            component={"underlying"}
+            options={underlying}
+            initial={"CORN"}
+          />
+          <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
+            Strike Price & Expiry
+          </span>
+          <Dropdown
+            page={"hedge"}
+            component={"strikePrice"}
+            options={strikeAndExpiry}
+            initial={false}
+            type={"expiry"}
+            initialIndex={0}
+          />
+          <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
+            Amount of Liquidity to provide Option in USDC
+          </span>
           <div
             style={{
-              width: "350px",
-              height: "40px",
+              width: "100%",
               border: "2px solid black",
+              height: "50px",
               borderRadius: "20px",
+              marginTop: "10px",
               display: "flex",
-              justifyContent: "center",
               alignItems: "center",
-              margin:"0 auto"
             }}
           >
-            <MenuItem
-              onClick={() => setDisplay("Add")}
-              style={{ marginRight: "20px" }}
+            <input
+              style={{
+                outline: "none",
+                fontSize: "18px",
+                width: "80%",
+                marginLeft: "20px",
+                background: "",
+                height: "45px",
+              }}
+            />
+            <div
+              style={{
+                width: "13%",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              Add
-            </MenuItem>
-            <MenuItem 
-            onClick={() => setDisplay("Remove")}
-            >
-              Remove
-            </MenuItem>
-
+              <span>USDC</span>
+            </div>
           </div>
-          {display=="Add" ? (
-            <>
-              <p>Select Underlying:</p>
-              <Dropdown />
-              <ButtonContainer>
-                <Button onClick={() => !account.address && handleConnectWallet()}>
-                  {account.address ? <span>Add Liquidity</span> : <span>Connect Wallet</span>}
-                </Button>
-              </ButtonContainer>
-            </>
-          ) : (
-            <>
-              <p>Select Underlying:</p>
-              <Dropdown />
-              <br/>
-              <p>Your Position:</p>
-
-              <br/>
-              <p>Select the percentage you want to remove:</p>
-                <Slider aria-label="slider-ex-1" defaultValue={0} onChangeEnd={(val) => setPercentToRemove(val)}>
-                  <SliderTrack>
-                    <SliderFilledTrack />
-                  </SliderTrack>
-                  <SliderThumb />
-                </Slider>
-                <p>{percentToRemove}%</p>
-                <br/><br/>
-                <ButtonContainer>
-                  <Button onClick={() => !account.address && handleConnectWallet()}>
-                    {account.address ? <span>Remove Liquidity</span> : <span>Connect Wallet</span>}
-                  </Button>
-                </ButtonContainer>
-            </>
-          )}
+        </div>
+        <ButtonContainer>
+          <Button onClick={() => !account.address && handleConnectWallet()}>
+            {account.address ? (
+              <span>Provide Liquidity</span>
+            ) : (
+              <span>Connect Wallet</span>
+            )}
+          </Button>
+        </ButtonContainer>
       </FormContainer>
     </PLContainer>
   );

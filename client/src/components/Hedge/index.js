@@ -55,7 +55,7 @@ const Hedge = () => {
             initialIndex={0}
           />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
-            Amount of Underlying to buy in USDC
+            Amount of Option to buy in USDC
           </span>
           <div
             style={{

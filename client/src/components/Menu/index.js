@@ -7,6 +7,9 @@ const Menu = ({ history, location }) => {
     history.push(route);
   };
 
+  const isHedge = location.pathname === "/hedge";
+  const isPL = location.pathname === "/provide-liquidity";
+
   return (
     <div
       style={{
@@ -20,12 +23,16 @@ const Menu = ({ history, location }) => {
       }}
     >
       <MenuItem
+        selected={isHedge}
         onClick={() => changeRoute("/hedge")}
         style={{ marginRight: "20px" }}
       >
         Hedge
       </MenuItem>
-      <MenuItem onClick={() => changeRoute("/provide-liquidity")}>
+      <MenuItem
+        selected={isPL}
+        onClick={() => changeRoute("/provide-liquidity")}
+      >
         Provide Liquidity
       </MenuItem>
     </div>
