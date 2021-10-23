@@ -11,7 +11,7 @@ export const HedgeContainer = styled.div`
 
 export const FormContainer = styled.div`
   width: 500px;
-  height: 400px;
+  height: 410px;
   border: 2px solid black;
   border-radius: 20px;
   position: relative;

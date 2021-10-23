@@ -10,7 +10,16 @@ import history from "./utils/history";
 
 const App = () => {
   const [account, setAccount] = useState({});
-  const [dropDownOpen, setDropDown] = useState(false);
+  const [dropDownState, setDropDown] = useState({
+    hedge: {
+      underlying: false,
+      strikePrice: false,
+    },
+    provideLiquidity: {
+      some: false,
+      thing: false,
+    },
+  });
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
@@ -18,9 +27,37 @@ const App = () => {
     setAccount({ ...account, ...res });
   };
 
-  const handleCollDropdownSwitch = () => {
+  const handleCollDropdownSwitch = (page, component) => {
     console.log("entered");
-    setDropDown(!dropDownOpen);
+    setDropDown({
+      ...dropDownState,
+      [page]: {
+        [component]: !dropDownState[page][component],
+      },
+    });
+  };
+
+  const closeAll = () => {
+    setDropDown({
+      hedge: {
+        underlying: false,
+        strikePrice: false,
+      },
+      provideLiquidity: {
+        some: false,
+        thing: false,
+      },
+    });
+  };
+
+  const anyOpen = () => {
+    if (
+      Object.entries(dropDownState.hedge).find((v) => v[1]) ||
+      Object.entries(dropDownState.hedge).find((v) => v[1])
+    ) {
+      return true;
+    }
+    return false;
   };
 
   useEffect(() => {
@@ -36,7 +73,8 @@ const App = () => {
     handleCollDropdownSwitch,
     handleConnectWallet,
     account,
-    dropDownOpen,
+    dropDownState,
+    anyOpen,
   };
 
   return (
@@ -45,13 +83,13 @@ const App = () => {
         <ChakraProvider>
           <div>
             <div
-              onClick={() => handleCollDropdownSwitch()}
+              onClick={() => closeAll()}
               style={{
                 position: "absolute",
                 zIndex: "3",
                 width: "100%",
                 height: "100%",
-                display: !dropDownOpen && "none",
+                display: !anyOpen() && "none",
               }}
             />
             <Switch>

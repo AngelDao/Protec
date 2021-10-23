@@ -28,11 +28,21 @@ const Hedge = () => {
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
             Underlying
           </span>
-          <Dropdown options={underlying} />
+          <Dropdown
+            page={"hedge"}
+            component={"underlying"}
+            options={underlying}
+            initial={"CORN"}
+          />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
             Strike Price & Expiry
           </span>
-          <Dropdown options={{}} />
+          <Dropdown
+            page={"hedge"}
+            component={"strikePrice"}
+            options={{}}
+            initial={false}
+          />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
             Amount of Underlying to buy in USDC
           </span>

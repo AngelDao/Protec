@@ -17,11 +17,11 @@ import Cattle from "../../assets/cattle.png";
 import ArrowDown from "../../assets/arrow-down.svg";
 import CredentialsContext from "../../context/credentialsContext";
 
-const Dropdown = ({ options }) => {
-  const { handleCollDropdownSwitch, dropDownOpen } =
+const Dropdown = ({ options, page, component, initial }) => {
+  const { handleCollDropdownSwitch, dropDownState } =
     useContext(CredentialsContext);
   const [styleState, setStyleState] = useState({
-    collateral: "CORN",
+    collateral: initial,
     hovered: null,
   });
 
@@ -31,11 +31,11 @@ const Dropdown = ({ options }) => {
 
   const handleSelect = (value) => {
     setStyleState({ ...styleState, collateral: value });
-    handleCollDropdownSwitch();
+    handleCollDropdownSwitch(page, component);
   };
 
   const switchState = () => {
-    handleCollDropdownSwitch();
+    handleCollDropdownSwitch(page, component);
   };
 
   const iconMap = {
@@ -53,10 +53,12 @@ const Dropdown = ({ options }) => {
           onClick={() => switchState()}
           style={{ position: "relative", cursor: "pointer", zIndex: 4 }}
         >
-          <SelectedCollateral
-            src={iconMap[styleState.collateral]}
-            alt="antlogo"
-          />
+          {initial && (
+            <SelectedCollateral
+              src={iconMap[styleState.collateral]}
+              alt="antlogo"
+            />
+          )}
           <CurrencyTitle>{options[styleState.collateral]}</CurrencyTitle>
           <img
             alt="down"
@@ -64,7 +66,9 @@ const Dropdown = ({ options }) => {
             src={ArrowDown}
           />
         </CurrencyContainer>
-        <OptionContainer style={{ display: !dropDownOpen && "none" }}>
+        <OptionContainer
+          style={{ display: !dropDownState[page][component] && "none" }}
+        >
           {Object.entries(options).map(([key, value]) => (
             <Container
               onMouseEnter={() => handleHover(key)}
