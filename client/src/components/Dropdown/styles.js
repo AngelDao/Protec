@@ -7,6 +7,8 @@ export const InputContainer = styled.div`
   border-radius: 20px;
   border: 2px solid;
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `;
 
 export const CurrencyContainer = styled.div`

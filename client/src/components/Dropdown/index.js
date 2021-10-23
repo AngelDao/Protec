@@ -17,7 +17,7 @@ import Cattle from "../../assets/cattle.png";
 import ArrowDown from "../../assets/arrow-down.svg";
 import CredentialsContext from "../../context/credentialsContext";
 
-const Dropdown = ({ isEnter, isExit }) => {
+const Dropdown = ({ options }) => {
   const { handleCollDropdownSwitch, dropDownOpen } =
     useContext(CredentialsContext);
   const [styleState, setStyleState] = useState({
@@ -38,14 +38,6 @@ const Dropdown = ({ isEnter, isExit }) => {
     handleCollDropdownSwitch();
   };
 
-  const collateral = {
-    CORN: "CORN",
-    CHEESE: "CHEESE",
-    MILK: "MILK",
-    GAS: "GAS",
-    CATTLE: "CATTLE",
-  };
-
   const iconMap = {
     CORN: Corn,
     CHEESE: Cheese,
@@ -55,11 +47,9 @@ const Dropdown = ({ isEnter, isExit }) => {
   };
 
   return (
-    <InputContainer isEnter={isEnter} isExit={isExit}>
+    <InputContainer>
       <div style={{ position: "relative", width: "100%" }}>
         <CurrencyContainer
-          isEnter={isEnter}
-          isExit={isExit}
           onClick={() => switchState()}
           style={{ position: "relative", cursor: "pointer", zIndex: 4 }}
         >
@@ -67,7 +57,7 @@ const Dropdown = ({ isEnter, isExit }) => {
             src={iconMap[styleState.collateral]}
             alt="antlogo"
           />
-          <CurrencyTitle>{collateral[styleState.collateral]}</CurrencyTitle>
+          <CurrencyTitle>{options[styleState.collateral]}</CurrencyTitle>
           <img
             alt="down"
             style={{ position: "absolute", right: "12px" }}
@@ -75,7 +65,7 @@ const Dropdown = ({ isEnter, isExit }) => {
           />
         </CurrencyContainer>
         <OptionContainer style={{ display: !dropDownOpen && "none" }}>
-          {Object.entries(collateral).map(([key, value]) => (
+          {Object.entries(options).map(([key, value]) => (
             <Container
               onMouseEnter={() => handleHover(key)}
               onMouseLeave={() => handleHover(null)}
@@ -83,7 +73,7 @@ const Dropdown = ({ isEnter, isExit }) => {
               opt={key}
               styleState={styleState}
             >
-              <CurrencyImg src={iconMap[key]} />
+              {iconMap[key] && <CurrencyImg src={iconMap[key]} />}
               <OptionText>{value}</OptionText>
             </Container>
           ))}
