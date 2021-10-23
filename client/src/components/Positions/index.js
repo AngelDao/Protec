@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CredentialsContext from "../../context/credentialsContext";
 import {
   Button,
@@ -27,6 +27,12 @@ const Positions = () => {
     const obj = { expiry: e.expiration, strikePrice: e.strikePrice / 10 ** 6 };
     strikeAndExpiry.push(obj);
   });
+
+
+  useEffect(() => {
+    const opts = getOption()
+    const provisions = getProvisions()
+  })
 
   return (
     <div>
