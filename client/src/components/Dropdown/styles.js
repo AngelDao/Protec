@@ -39,7 +39,7 @@ export const OptionContainer = styled.div`
   left: 15px;
   border-bottom: 2px solid black;
   background: rgba(19, 12, 82, 1);
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: end;
