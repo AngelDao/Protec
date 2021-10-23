@@ -10,11 +10,17 @@ import history from "./utils/history";
 
 const App = () => {
   const [account, setAccount] = useState({});
+  const [dropDownOpen, setDropDown] = useState(false);
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
     console.log(res);
     setAccount({ ...account, ...res });
+  };
+
+  const handleCollDropdownSwitch = () => {
+    console.log("entered");
+    setDropDown(!dropDownOpen);
   };
 
   useEffect(() => {
@@ -26,22 +32,39 @@ const App = () => {
     })();
   }, [account]);
 
-  const credentials = { handleConnectWallet, account };
+  const credentials = {
+    handleCollDropdownSwitch,
+    handleConnectWallet,
+    account,
+    dropDownOpen,
+  };
 
   return (
     <Router history={history}>
       <CredentialsProvider value={credentials}>
         <ChakraProvider>
-          <Switch>
-            <Route
-              exact
-              path={["/hedge", "/provide-liquidity"]}
-              component={Layout}
+          <div>
+            <div
+              onClick={() => handleCollDropdownSwitch()}
+              style={{
+                position: "absolute",
+                zIndex: "3",
+                width: "100%",
+                height: "100%",
+                display: !dropDownOpen && "none",
+              }}
             />
-            <Route>
-              <Redirect to="/hedge" />
-            </Route>
-          </Switch>
+            <Switch>
+              <Route
+                exact
+                path={["/hedge", "/provide-liquidity"]}
+                component={Layout}
+              />
+              <Route>
+                <Redirect to="/hedge" />
+              </Route>
+            </Switch>
+          </div>
         </ChakraProvider>
       </CredentialsProvider>
     </Router>
