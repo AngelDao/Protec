@@ -7,6 +7,7 @@ import connectWallet from "./helpers/connectWallet";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import history from "./utils/history";
+import ActionModal from "./components/ActionModal";
 
 const App = () => {
   const [account, setAccount] = useState({});
@@ -20,11 +21,16 @@ const App = () => {
       thing: false,
     },
   });
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
     console.log(res);
     setAccount({ ...account, ...res });
+  };
+
+  const switchModal = () => {
+    setVisibleModal(!visibleModal);
   };
 
   const handleCollDropdownSwitch = (page, component) => {
@@ -75,13 +81,15 @@ const App = () => {
     account,
     dropDownState,
     anyOpen,
+    switchModal,
   };
 
   return (
     <Router history={history}>
       <CredentialsProvider value={credentials}>
         <ChakraProvider>
-          <div>
+          <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+            <ActionModal visible={visibleModal} handleClose={switchModal} />
             <div
               onClick={() => closeAll()}
               style={{
@@ -95,7 +103,7 @@ const App = () => {
             <Switch>
               <Route
                 exact
-                path={["/hedge", "/provide-liquidity"]}
+                path={["/hedge", "/provide-liquidity", "/positions"]}
                 component={Layout}
               />
               <Route>

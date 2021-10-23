@@ -10,7 +10,8 @@ import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
 
 const Hedge = () => {
-  const { account, handleConnectWallet } = useContext(CredentialsContext);
+  const { account, handleConnectWallet, switchModal } =
+    useContext(CredentialsContext);
 
   const underlying = {
     CORN: "CORN",
@@ -90,7 +91,11 @@ const Hedge = () => {
           </div>
         </div>
         <ButtonContainer>
-          <Button onClick={() => !account.address && handleConnectWallet()}>
+          <Button
+            onClick={() =>
+              !account.address ? handleConnectWallet() : switchModal()
+            }
+          >
             {account.address ? <span>Hedge</span> : <span>Connect Wallet</span>}
           </Button>
         </ButtonContainer>

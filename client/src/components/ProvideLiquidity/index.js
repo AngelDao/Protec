@@ -5,7 +5,8 @@ import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
 
 const ProvideLiquidity = () => {
-  const { account, handleConnectWallet } = useContext(CredentialsContext);
+  const { account, handleConnectWallet, switchModal } =
+    useContext(CredentialsContext);
 
   const underlying = {
     CORN: "CORN",
@@ -85,7 +86,11 @@ const ProvideLiquidity = () => {
           </div>
         </div>
         <ButtonContainer>
-          <Button onClick={() => !account.address && handleConnectWallet()}>
+          <Button
+            onClick={() =>
+              !account.address ? handleConnectWallet() : switchModal()
+            }
+          >
             {account.address ? (
               <span>Provide Liquidity</span>
             ) : (

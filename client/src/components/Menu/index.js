@@ -9,11 +9,12 @@ const Menu = ({ history, location }) => {
 
   const isHedge = location.pathname === "/hedge";
   const isPL = location.pathname === "/provide-liquidity";
+  const isPositions = location.pathname === "/positions";
 
   return (
     <div
       style={{
-        width: "350px",
+        width: "400px",
         height: "40px",
         border: "2px solid black",
         borderRadius: "20px",
@@ -32,8 +33,15 @@ const Menu = ({ history, location }) => {
       <MenuItem
         selected={isPL}
         onClick={() => changeRoute("/provide-liquidity")}
+        style={{ marginRight: "20px" }}
       >
         Provide Liquidity
+      </MenuItem>
+      <MenuItem
+        selected={isPositions}
+        onClick={() => changeRoute("/positions")}
+      >
+        Positions
       </MenuItem>
     </div>
   );
