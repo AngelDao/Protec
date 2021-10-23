@@ -21,15 +21,6 @@ async function main() {
   await redstone.deployed();
 
   console.log("RedStoneOracleTest deployed to:", redstone.address);
-
-  redstone = WrapperBuilder
-      .wrapLite(redstone)
-      .usingPriceFeed("redstone-stocks");
-
-  await redstone.authorizeProvider();
-  const lastPrice = await redstone.getPrice('TSLA');
-
-  console.log("LastPrice", lastPrice);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
