@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HedgeContainer = styled.div`
+export const PLContainer = styled.div`
   width: 100%;
   display: flex;
   // justifyContent:center;
