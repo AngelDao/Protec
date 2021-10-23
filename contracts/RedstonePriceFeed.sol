@@ -26,7 +26,7 @@ contract RedstonePriceFeed is IPriceFeed {
     function latestRoundData()
         external
         override
-        pure
+        view
         returns (
             uint80 roundId,
             int256 answer,
