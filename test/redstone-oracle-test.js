@@ -8,7 +8,8 @@ function testGetAPrice(name, ticker) {
       .wrapLite(redstone)
       .usingPriceFeed("redstone-stocks");
     await redstone.authorizeProvider();
-    expect(await redstone.getPrice(ticker)).to.be.gt(0);
+    await redstone.getPrice(ticker);
+    expect(await redstone.getLastPrice(ticker)).to.be.gt(0);
   });
 }
 
