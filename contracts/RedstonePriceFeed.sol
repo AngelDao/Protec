@@ -35,7 +35,7 @@ contract RedstonePriceFeed is IPriceFeed {
             uint80 answeredInRound
         )
     {
-        return (0, 0, 0, 0, 0);
+        return (0, 0, 1, block.timestamp, 0);
     }
 
     /**
