@@ -8,9 +8,9 @@ contract RedStoneOracle is PriceAware {
 
   mapping(bytes32 => uint256) private lastPrice;
     
-  function getPrice(string memory ticker) public returns(uint price) {
+  function getPrice(string memory ticker) public {
     bytes32 tickerData = stringMemorytoBytes32(ticker);
-    price = getPriceFromMsg(tickerData);
+    uint256 price = getPriceFromMsg(tickerData);
     require(price != 0, 'no price returned!');
     _storePrice(tickerData,price);
   }
