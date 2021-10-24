@@ -28,6 +28,12 @@ const Positions = () => {
     strikeAndExpiry.push(obj);
   });
 
+
+  useEffect(() => {
+    const opts = getOption()
+    const provisions = getProvisions()
+  })
+
   return (
     <div>
       <HedgeContainer>
