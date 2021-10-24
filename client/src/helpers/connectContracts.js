@@ -11,8 +11,15 @@ const connectContracts = async (account) => {
       ERC20,
       account.signer
     );
+    const optionAMM = new ethers.Contract(
+      e["Pool Address (Kovan)"],
+      OptionAMMPool,
+      account.signer
+    );
     e.optionToken = optionToken;
+    e.optionAMM = optionToken;
   });
+  console.log(optionsResults);
   return optionsResults;
 };
 
