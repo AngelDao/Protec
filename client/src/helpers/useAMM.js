@@ -2,10 +2,12 @@ import { ethers } from "ethers";
 
 export const buyOption = async (owner, ctrct, amountOptionsToBuy) => {
   // Building parameters to make trade
+  console.log("a", ctrct);
   const parameters = await ctrct.getOptionTradeDetailsExactAOutput(
-    amountOptionsToBuy
+    parseInt(amountOptionsToBuy.toString())
   );
 
+  console.log(parameters);
   await ctrct.tradeExactAOutput(
     amountOptionsToBuy,
     parameters[0],

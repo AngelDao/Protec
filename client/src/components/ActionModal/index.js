@@ -6,6 +6,8 @@ import ERC20 from "../../abis/ERC20.json";
 import { ethers } from "ethers";
 import CredentialsContext from "../../context/credentialsContext";
 import { buyOption } from "../../helpers/useAMM";
+import { approve } from "../../helpers/approve";
+import { BigNumber } from "@ethersproject/bignumber";
 
 const ActionModal = ({
   visible,
@@ -31,16 +33,34 @@ const ActionModal = ({
     ];
   };
 
-  const isApproved = async (usdc) => {
+  const isApproved = async (usdc, ctrct) => {
     console.log(usdc);
+    const allowance = await usdc.allowance(account.address, ctrct.address);
+    console.log(parseInt(allowance.toString()));
+    return parseInt(allowance.toString());
   };
 
   const handleSend = async () => {
     const [ctrct, usdc] = connect();
-    await isApproved(usdc);
-    await buyOption(account.address, ctrct, (amount * 10 ** 6).toString());
-    console.log(ctrct);
-    // send();
+    const ctc = await ctrct.connect(account.address);
+    console.log("amount", amount);
+    const amt = await isApproved(usdc, ctc);
+    console.log("send value", (amount * 10 ** 6).toString());
+    const num = BigNumber.from((amount * 10 ** 6).toString());
+    console.log(num);
+    console.log(num.toString());
+    if (amt > 0) {
+      console.log("");
+      await buyOption(
+        account.address,
+        ctc,
+        BigNumber.from((amount * 10 ** 6).toString())
+      );
+      console.log(ctrct);
+      // send();
+    } else {
+      await approve(usdc, ctrct);
+    }
   };
 
   return (

@@ -1,6 +1,8 @@
-import { ethers } from 'ethers'
+import { ethers } from "ethers";
 
 export const approve = async (tokenContract, spenderContract) => {
-  return await tokenContract.methods
-    .approve(spenderContract.options.address, ethers.constants.MaxUint256)
-}
+  return await tokenContract.approve(
+    spenderContract.address,
+    ethers.constants.MaxUint256
+  );
+};
