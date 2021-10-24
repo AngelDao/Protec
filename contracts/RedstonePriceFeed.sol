@@ -17,7 +17,7 @@ contract RedstonePriceFeed is IPriceFeed {
      * @dev Get the latest price
      */
     function getLatestPrice() external override view returns (int256, uint256) {
-        return (int(RedStoneOracle(redstoneFeedAddress).getLastPrice(ticker)), 0);
+        return (int(RedStoneOracle(redstoneFeedAddress).getLastPrice(ticker)), block.timestamp);
     }
 
     /**
@@ -35,13 +35,13 @@ contract RedstonePriceFeed is IPriceFeed {
             uint80 answeredInRound
         )
     {
-        return (0, 0, 1, block.timestamp, 0);
+        return (1, 0, 1, block.timestamp, 0);
     }
 
     /**
      * @dev Get asset decimals
      */
     function decimals() external override pure returns (uint8) {
-        return 18;
+        return 8;
     }
 }
