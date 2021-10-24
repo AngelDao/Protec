@@ -105,7 +105,7 @@ const App = () => {
   return (
     <Router history={history}>
       <CredentialsProvider value={credentials}>
-        <ChakraProvider>
+        
           <div
             style={{
               width: "100%",
@@ -148,7 +148,7 @@ const App = () => {
               </Route>
             </Switch>
           </div>
-        </ChakraProvider>
+        
       </CredentialsProvider>
     </Router>
   );
