@@ -44,9 +44,9 @@ const App = () => {
 
 
     const options = getOptions(res, optionsContracts)
-    const pools = getPools(account, poolContracs)
+    // const pools = getPools(res, poolContracs)
     setMarkets(contracts);
-    setAccount({ ...account, ...res, ...options, ...pools });
+    setAccount({ ...account, ...res, ...options });
   };
 
   const switchModal = () => {
