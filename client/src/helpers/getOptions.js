@@ -6,10 +6,12 @@ export const getOptions = async (account, optionContracts) => {
     for (const optionContract of optionContracts) {
       optionContract.balanceOf(account.address)
         .then((bal) => {
-          optionContract.name()
-            .then((name) => {
-              ops.push({ optionName: name, optionBal: bal });
-            });
+          if (bal != 0) {
+            optionContract.name()
+              .then((name) => {
+                ops.push({ optionName: name, optionBal: bal });
+              });
+          }
         });
     }
 	return ops;
