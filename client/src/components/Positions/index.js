@@ -10,7 +10,7 @@ import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
 
 const Positions = () => {
-  const { account, handleConnectWallet, switchModal } =
+  const { account, handleConnectWallet, switchModal, optionContracts } =
     useContext(CredentialsContext);
 
   const underlying = {
@@ -30,7 +30,14 @@ const Positions = () => {
 
 
   useEffect(() => {
-    const opts = getOption()
+    const ops = [];
+    for (const optionContract of optionContracts) {
+      optionContract.methods.balanceOf(account).call().then(bal => {
+        optionContract.methods.name().call().then(name => {
+          ops.push({name: name, bal: bal})
+        })
+      })
+    }
     const provisions = getProvisions()
   })
 
