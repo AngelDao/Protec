@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
 import erc20Abi from '../abis/ERC20.json';
 import podCallAbi from '../abis/PodCall.json';
-import OptionAMMPoolAbi from 'OptionAMMPool.json';
+import OptionAMMPoolAbi from '../abis/OptionAMMPool.json';
 
 const getContract = (address, abi, ethers) => {
   return new ethers.Contract(address, abi, ethers)

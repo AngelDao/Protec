@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-export default const getTokenBalance= async (tokenContract, decimals, account) => {
+export const getTokenBalance= async (tokenContract, decimals, account) => {
   const rawAmount = tokenContract.methods
     .balanceOf(account)
     .call()
