@@ -42,7 +42,7 @@ const ActionModal = ({
 
   const handleSend = async () => {
     const [ctrct, usdc] = connect();
-    const ctc = await ctrct.connect(account.address);
+    const ctc = await ctrct.connect(account.signer);
     console.log("amount", amount);
     const amt = await isApproved(usdc, ctc);
     console.log("send value", (amount * 10 ** 6).toString());
@@ -51,11 +51,7 @@ const ActionModal = ({
     console.log(num.toString());
     if (amt > 0) {
       console.log("");
-      await buyOption(
-        account.address,
-        ctc,
-        BigNumber.from((amount * 10 ** 6).toString())
-      );
+      await buyOption(account.address, ctc, num);
       console.log(ctrct);
       // send();
     } else {

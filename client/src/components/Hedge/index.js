@@ -52,7 +52,7 @@ const Hedge = () => {
             page={"hedge"}
             component={"underlying"}
             options={underlying}
-            initial={"CORN"}
+            initial={"CHEESE"}
           />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
             Strike Price & Expiry
@@ -66,7 +66,7 @@ const Hedge = () => {
             initialIndex={0}
           />
           <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
-            Amount of Option to buy in USDC
+            Amount of Option in USDC
           </span>
           <div
             style={{
