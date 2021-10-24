@@ -1,19 +1,23 @@
 import React from "react";
 import Close from "../../assets/close.png";
 
-const ActionModal = ({ visible, handleClose }) => {
+const ActionModal = ({ visible, handleClose, title, content, send }) => {
   console.log(visible);
   if (!visible) {
     return null;
   }
+
+  const handleSend = () => {
+    // send();
+    handleClose();
+  };
+
   return (
     <div
-      onClick={() => handleClose()}
       style={{
         width: "100%",
         height: "100vh",
         backgroundColor: "rgba(0,0,0,0.5)",
-        zIndex: "10",
         position: "absolute",
         display: "flex",
         justifyContent: "center",
@@ -22,27 +26,67 @@ const ActionModal = ({ visible, handleClose }) => {
     >
       <div
         style={{
-          zIndex: "11",
+          zIndex: "8",
           width: "600px",
           height: "400px",
           background: "white",
           borderRadius: "20px",
-          padding: "20px",
+          padding: "30px",
           position: "relative",
         }}
       >
-        <div>
-          <img
-            onClick={() => handleClose()}
+        <img
+          onClick={() => handleClose()}
+          style={{
+            width: "15px",
+            position: "absolute",
+            right: "20px",
+            top: "35px",
+            cursor: "pointer",
+          }}
+          src={Close}
+          alt="x"
+        />
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <span style={{ fontSize: "25px" }}>{title}</span>
+          <span style={{ marginTop: "50px", textAlign: "center" }}>
+            {content}
+          </span>
+          <div
             style={{
-              width: "20px",
+              width: "100%",
               position: "absolute",
-              right: "20px",
-              cursor: "pointer",
+              bottom: "40px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            src={Close}
-            alt="x"
-          />
+          >
+            <div
+              onClick={() => handleSend()}
+              style={{
+                width: "90%",
+                marginTop: "80px",
+                border: "2px solid black",
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "20px",
+                cursor: "pointer",
+              }}
+            >
+              <span>Execute Transaction</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

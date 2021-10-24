@@ -11,7 +11,7 @@ import optionsMetaData from "../../utils/optionsMetaData";
 import  getErc20Contract  from "../helpers/getContract";
 
 const Positions = () => {
-  const { account, handleConnectWallet, switchModal } =
+  const { account, handleConnectWallet, switchModal, optionContracts } =
     useContext(CredentialsContext);
 
   const underlying = {
@@ -31,8 +31,6 @@ const Positions = () => {
 
 
   useEffect(() => {
-    const opts = getOption()
-
     const provisions = async() => {
       let userProvisions =[];
       for(let i=0; i < optionAMMPoolcontracts.length; i++) {
@@ -57,6 +55,15 @@ const Positions = () => {
       }
 
     };
+
+    const ops = [];
+    for (const optionContract of optionContracts) {
+      optionContract.methods.balanceOf(account).call().then(bal => {
+        optionContract.methods.name().call().then(name => {
+          ops.push({name: name, bal: bal})
+        })
+      })
+    }
   })
 
   return (

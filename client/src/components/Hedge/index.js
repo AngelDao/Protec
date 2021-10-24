@@ -10,7 +10,7 @@ import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
 
 const Hedge = () => {
-  const { account, handleConnectWallet, switchModal } =
+  const { account, handleConnectWallet, switchModal, setModalContent } =
     useContext(CredentialsContext);
 
   const underlying = {
@@ -92,9 +92,18 @@ const Hedge = () => {
         </div>
         <ButtonContainer>
           <Button
-            onClick={() =>
-              !account.address ? handleConnectWallet() : switchModal()
-            }
+            onClick={() => {
+              if (!account.address) {
+                handleConnectWallet();
+              } else {
+                switchModal(true);
+                setModalContent({
+                  title: "Hedge",
+                  content:
+                    "You are buying a call option that will go up if the underlying asset price goes up and will go down if the underlying asset price goes down.",
+                });
+              }
+            }}
           >
             {account.address ? <span>Hedge</span> : <span>Connect Wallet</span>}
           </Button>

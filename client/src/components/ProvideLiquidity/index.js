@@ -5,7 +5,7 @@ import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
 
 const ProvideLiquidity = () => {
-  const { account, handleConnectWallet, switchModal } =
+  const { account, handleConnectWallet, switchModal, setModalContent } =
     useContext(CredentialsContext);
 
   const underlying = {
@@ -87,9 +87,18 @@ const ProvideLiquidity = () => {
         </div>
         <ButtonContainer>
           <Button
-            onClick={() =>
-              !account.address ? handleConnectWallet() : switchModal()
-            }
+            onClick={() => {
+              if (!account.address) {
+                handleConnectWallet();
+              } else {
+                switchModal(true);
+                setModalContent({
+                  title: "Provide Liquidity",
+                  content:
+                    "You will providing liquidity to the options AMM. this will potentially suffer IL",
+                });
+              }
+            }}
           >
             {account.address ? (
               <span>Provide Liquidity</span>
