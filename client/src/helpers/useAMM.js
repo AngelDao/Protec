@@ -1,40 +1,31 @@
-import { ethers } from 'ethers'
+import { ethers } from "ethers";
 
-export const buyOption = async (
-    optionAMMContract,
+export const buyOption = async (owner, ctrct, amountOptionsToBuy) => {
+  // Building parameters to make trade
+  const parameters = await ctrct.getOptionTradeDetailsExactAOutput(
+    amountOptionsToBuy
+  );
+
+  await ctrct.tradeExactAOutput(
     amountOptionsToBuy,
-    ethers
-) => {
-    const owner = await ethers.getAddress();
+    parameters[0],
+    owner,
+    parameters[1]
+  );
+};
 
-    // Building parameters to make trade
-    const parameters = await optionAMMContract
-        .getOptionTradeDetailsExactAOutput(amountOptionsToBuy);
+export const sellOption = async (optionAMMContract, amountToSell, ethers) => {
+  const owner = await ethers.getAddress();
 
-    await optionAMMContract.tradeExactAOutput(
-        amountOptionsToBuy,
-        parameters[0],
-        owner,
-        parameters[1]
-    );    
-}
+  // Building parameters to make trade
+  const parameters = await optionAMMContract.getOptionTradeDetailsExactAInput(
+    amountToSell
+  );
 
-export const sellOption = async (
-    optionAMMContract,
+  await optionAMMContract.tradeExactAOutput(
     amountToSell,
-    ethers
-    ) => {
-    const owner = await ethers.getAddress();
-
-    // Building parameters to make trade
-    const parameters = await optionAMMContract
-        .getOptionTradeDetailsExactAInput(amountToSell);
-
-    await optionAMMContract.tradeExactAOutput(
-        amountToSell,
-        parameters[0],
-        owner,
-        parameters[1]
-    ); 
-	
-}
+    parameters[0],
+    owner,
+    parameters[1]
+  );
+};

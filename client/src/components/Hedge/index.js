@@ -8,10 +8,20 @@ import {
 } from "./styles";
 import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
+import optionsResults from "../../utils/optionsResults";
 
 const Hedge = () => {
-  const { account, handleConnectWallet, switchModal, setModalContent } =
-    useContext(CredentialsContext);
+  const {
+    account,
+    handleConnectWallet,
+    switchModal,
+    setModalContent,
+    setAmount,
+  } = useContext(CredentialsContext);
+
+  // const underlying = optionsResults.map((e) => {
+  //   return e["Underlying asset"];
+  // });
 
   const underlying = {
     CORN: "CORN",
@@ -70,6 +80,10 @@ const Hedge = () => {
             }}
           >
             <input
+              onChange={(e) => {
+                console.log(e.target.value);
+                setAmount(e.target.value);
+              }}
               style={{
                 outline: "none",
                 fontSize: "18px",
@@ -78,6 +92,7 @@ const Hedge = () => {
                 background: "",
                 height: "45px",
               }}
+              type="number"
             />
             <div
               style={{

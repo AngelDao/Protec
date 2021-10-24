@@ -26,8 +26,10 @@ const App = () => {
   const [modalContent, setModalContent] = useState({
     title: "",
     content: "",
+    initializeTX: "",
   });
   const [markets, setMarkets] = useState([]);
+  const [amount, setAmount] = useState(0);
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
@@ -97,6 +99,7 @@ const App = () => {
     switchModal,
     setModalContent,
     markets,
+    setAmount,
   };
 
   return (
@@ -117,6 +120,7 @@ const App = () => {
               content={modalContent.content}
               visible={visibleModal}
               handleClose={switchModal}
+              amount={amount}
             />
             <div
               onClick={() => {
@@ -126,7 +130,7 @@ const App = () => {
               }}
               style={{
                 position: "absolute",
-                zIndex: "7",
+                zIndex: anyOpen() ? "3" : "7",
                 width: "100%",
                 height: "100%",
                 display: !anyOpen() && "none",

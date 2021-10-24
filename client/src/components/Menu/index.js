@@ -14,7 +14,7 @@ const Menu = ({ history, location }) => {
   return (
     <div
       style={{
-        width: "400px",
+        width: "200px",
         height: "40px",
         border: "2px solid black",
         borderRadius: "20px",
@@ -26,11 +26,11 @@ const Menu = ({ history, location }) => {
       <MenuItem
         selected={isHedge}
         onClick={() => changeRoute("/hedge")}
-        style={{ marginRight: "20px" }}
+        // style={{ marginRight: "20px" }}
       >
         Hedge
       </MenuItem>
-      <MenuItem
+      {/* <MenuItem
         selected={isPL}
         onClick={() => changeRoute("/provide-liquidity")}
         style={{ marginRight: "20px" }}
@@ -42,7 +42,7 @@ const Menu = ({ history, location }) => {
         onClick={() => changeRoute("/positions")}
       >
         Positions
-      </MenuItem>
+      </MenuItem> */}
     </div>
   );
 };

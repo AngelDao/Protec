@@ -95,14 +95,24 @@ const Dropdown = ({
             ? options.map((v, i) => (
                 <Container
                   onMouseEnter={() =>
-                    handleHover(`${v.expiry}-${v.strikePrice}`)
+                    handleHover(
+                      `${options[i].strikePrice} USDC - ${moment
+                        .unix(options[i].expiry)
+                        .format()}`
+                    )
                   }
                   onMouseLeave={() => handleHover(null)}
                   onClick={() => {
-                    handleSelect(`${v.expiry}-${v.strikePrice}`);
+                    handleSelect(
+                      `${options[i].strikePrice} USDC - ${moment
+                        .unix(options[i].expiry)
+                        .format()}`
+                    );
                     setIndex(i);
                   }}
-                  opt={`${v.expiry}-${v.strikePrice}`}
+                  opt={`${options[i].strikePrice} USDC - ${moment
+                    .unix(options[i].expiry)
+                    .format()}`}
                   styleState={styleState}
                 >
                   <OptionText>{`${v.strikePrice} USDC - ${moment

@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import Close from "../../assets/close.png";
+import fixed from "../../utils/fixed";
+import OptionAMMPool from "../../abis/OptionAMMPool.json";
+import ERC20 from "../../abis/ERC20.json";
+import { ethers } from "ethers";
+import CredentialsContext from "../../context/credentialsContext";
+import { buyOption } from "../../helpers/useAMM";
 
-const ActionModal = ({ visible, handleClose, title, content, send }) => {
+const ActionModal = ({
+  visible,
+  handleClose,
+  title,
+  content,
+  send,
+  amount,
+}) => {
   // console.log(visible);
+  const { account } = useContext(CredentialsContext);
   if (!visible) {
     return null;
   }
+  const connect = () => {
+    return [
+      new ethers.Contract(
+        fixed["Pool Address (Kovan)"],
+        OptionAMMPool,
+        account.signer
+      ),
+      new ethers.Contract(fixed.usdcAddress, ERC20, account.signer),
+    ];
+  };
 
-  const handleSend = () => {
+  const isApproved = async (usdc) => {
+    console.log(usdc);
+  };
+
+  const handleSend = async () => {
+    const [ctrct, usdc] = connect();
+    await isApproved(usdc);
+    await buyOption(account.address, ctrct, (amount * 10 ** 6).toString());
+    console.log(ctrct);
     // send();
-    handleClose();
   };
 
   return (
