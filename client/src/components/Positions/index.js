@@ -8,7 +8,7 @@ import {
 } from "./styles";
 import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
-import  getErc20Contract  from "../helpers/getContract";
+// import getErc20Contract from "../helpers/getContract";
 
 const Positions = () => {
   const { account, handleConnectWallet, switchModal, optionContracts } =
@@ -29,42 +29,46 @@ const Positions = () => {
     strikeAndExpiry.push(obj);
   });
 
-
   useEffect(() => {
-    const provisions = async() => {
-      let userProvisions =[];
-      for(let i=0; i < optionAMMPoolcontracts.length; i++) {
-        let tempDepositSnapshot = await optionAMMPoolcontracts[i].getUserDepositSnapshot();
-        if(tempDepositSnapshot[0] != 0 && tempDepositSnapshot[1] !=0 ) {
-          let assetAaddress = await optionAMMPoolcontracts[i].tokenA();
-          let assetA = await getErc20Contract(assetAaddress, account);
-          let assetAName = await assetA.name();
-          userProvisions.push({
-            optionName:`Option AMM Pool ${assetAName}`,
-            optionABal:tempDepositSnapshot[0],
-            optionBBal:tempDepositSnapshot[1],
+    const provisions = async () => {
+      let userProvisions = [];
+      // for(let i=0; i < optionAMMPoolcontracts.length; i++) {
+      //   let tempDepositSnapshot = await optionAMMPoolcontracts[i].getUserDepositSnapshot();
+      //   if(tempDepositSnapshot[0] != 0 && tempDepositSnapshot[1] !=0 ) {
+      //     let assetAaddress = await optionAMMPoolcontracts[i].tokenA();
+      //     let assetA = await getErc20Contract(assetAaddress, account);
+      //     let assetAName = await assetA.name();
+      //     userProvisions.push({
+      //       optionName:`Option AMM Pool ${assetAName}`,
+      //       optionABal:tempDepositSnapshot[0],
+      //       optionBBal:tempDepositSnapshot[1],
 
-          });
-        }
-        if(userProvisions.length >0) {
-          return userProvisions;
-        } else {
-          return 0;
-        }
-        
-      }
+      //     });
+      //   }
+      //   if(userProvisions.length >0) {
+      //     return userProvisions;
+      //   } else {
+      //     return 0;
+      //   }
 
+      // }
     };
 
-    const ops = [];
-    for (const optionContract of optionContracts) {
-      optionContract.methods.balanceOf(account).call().then(bal => {
-        optionContract.methods.name().call().then(name => {
-          ops.push({name: name, bal: bal})
-        })
-      })
-    }
-  })
+    // const ops = [];
+    // for (const optionContract of optionContracts) {
+    //   optionContract.methods
+    //     .balanceOf(account)
+    //     .call()
+    //     .then((bal) => {
+    //       optionContract.methods
+    //         .name()
+    //         .call()
+    //         .then((name) => {
+    //           ops.push({ name: name, bal: bal });
+    //         });
+    //     });
+    // }
+  });
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React from "react";
 import Close from "../../assets/close.png";
 
 const ActionModal = ({ visible, handleClose, title, content, send }) => {
-  console.log(visible);
+  // console.log(visible);
   if (!visible) {
     return null;
   }

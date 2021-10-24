@@ -8,6 +8,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import history from "./utils/history";
 import ActionModal from "./components/ActionModal";
+import connectContracts from "./helpers/connectContracts";
 
 const App = () => {
   const [account, setAccount] = useState({});
@@ -26,10 +27,12 @@ const App = () => {
     title: "",
     content: "",
   });
+  const [markets, setMarkets] = useState([]);
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
-    console.log(res);
+    const contracts = await connectContracts(res);
+    setMarkets(contracts);
     setAccount({ ...account, ...res });
   };
 
@@ -43,7 +46,7 @@ const App = () => {
   };
 
   const handleCollDropdownSwitch = (page, component) => {
-    console.log("entered");
+    // console.log("entered");
     setDropDown({
       ...dropDownState,
       [page]: {
@@ -93,6 +96,7 @@ const App = () => {
     anyOpen,
     switchModal,
     setModalContent,
+    markets,
   };
 
   return (
@@ -116,7 +120,7 @@ const App = () => {
             />
             <div
               onClick={() => {
-                console.log("entered");
+                // console.log("entered");
                 closeAll();
                 closeModal();
               }}

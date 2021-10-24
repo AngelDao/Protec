@@ -28,7 +28,7 @@ const Dropdown = ({
 }) => {
   const { handleCollDropdownSwitch, dropDownState } =
     useContext(CredentialsContext);
-  console.log(options);
+  // console.log(options);
   const [styleState, setStyleState] = useState({
     collateral:
       initialIndex || typeof initialIndex === "number"
