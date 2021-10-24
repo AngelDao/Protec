@@ -43,7 +43,7 @@ const App = () => {
     })
 
 
-    const options = getOptions(account, optionsContracts)
+    const options = getOptions(res, optionsContracts)
     const pools = getPools(account, poolContracs)
     setMarkets(contracts);
     setAccount({ ...account, ...res, ...options, ...pools });
