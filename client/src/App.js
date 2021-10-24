@@ -22,6 +22,10 @@ const App = () => {
     },
   });
   const [visibleModal, setVisibleModal] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    content: "",
+  });
 
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
@@ -31,6 +35,11 @@ const App = () => {
 
   const switchModal = () => {
     setVisibleModal(!visibleModal);
+  };
+
+  const closeModal = () => {
+    setVisibleModal(false);
+    setModalContent({ title: "", content: "" });
   };
 
   const handleCollDropdownSwitch = (page, component) => {
@@ -59,7 +68,8 @@ const App = () => {
   const anyOpen = () => {
     if (
       Object.entries(dropDownState.hedge).find((v) => v[1]) ||
-      Object.entries(dropDownState.hedge).find((v) => v[1])
+      Object.entries(dropDownState.hedge).find((v) => v[1]) ||
+      visibleModal
     ) {
       return true;
     }
@@ -82,22 +92,41 @@ const App = () => {
     dropDownState,
     anyOpen,
     switchModal,
+    setModalContent,
   };
 
   return (
     <Router history={history}>
       <CredentialsProvider value={credentials}>
         <ChakraProvider>
-          <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-            <ActionModal visible={visibleModal} handleClose={switchModal} />
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <ActionModal
+              title={modalContent.title}
+              content={modalContent.content}
+              visible={visibleModal}
+              handleClose={switchModal}
+            />
             <div
-              onClick={() => closeAll()}
+              onClick={() => {
+                console.log("entered");
+                closeAll();
+                closeModal();
+              }}
               style={{
                 position: "absolute",
-                zIndex: "3",
+                zIndex: "7",
                 width: "100%",
                 height: "100%",
                 display: !anyOpen() && "none",
+                backgroundColor: visibleModal && "rgba(0,0,0,0.5)",
               }}
             />
             <Switch>
