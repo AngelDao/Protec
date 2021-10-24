@@ -8,6 +8,7 @@ import {
 } from "./styles";
 import Dropdown from "../Dropdown";
 import optionsMetaData from "../../utils/optionsMetaData";
+import  getErc20Contract  from "../helpers/getContract";
 
 const Positions = () => {
   const { account, handleConnectWallet, switchModal } =
@@ -31,7 +32,31 @@ const Positions = () => {
 
   useEffect(() => {
     const opts = getOption()
-    const provisions = getProvisions()
+
+    const provisions = async() => {
+      let userProvisions =[];
+      for(let i=0; i < optionAMMPoolcontracts.length; i++) {
+        let tempDepositSnapshot = await optionAMMPoolcontracts[i].getUserDepositSnapshot();
+        if(tempDepositSnapshot[0] != 0 && tempDepositSnapshot[1] !=0 ) {
+          let assetAaddress = await optionAMMPoolcontracts[i].tokenA();
+          let assetA = await getErc20Contract(assetAaddress, account);
+          let assetAName = await assetA.name();
+          userProvisions.push({
+            optionName:`Option AMM Pool ${assetAName}`,
+            optionABal:tempDepositSnapshot[0],
+            optionBBal:tempDepositSnapshot[1],
+
+          });
+        }
+        if(userProvisions.length >0) {
+          return userProvisions;
+        } else {
+          return 0;
+        }
+        
+      }
+
+    };
   })
 
   return (
