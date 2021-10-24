@@ -14,7 +14,7 @@ const Menu = ({ history, location }) => {
   return (
     <div
       style={{
-        width: "200px",
+        width: "500px",
         height: "40px",
         border: "2px solid black",
         borderRadius: "20px",
@@ -26,23 +26,23 @@ const Menu = ({ history, location }) => {
       <MenuItem
         selected={isHedge}
         onClick={() => changeRoute("/hedge")}
-        // style={{ marginRight: "20px" }}
+        style={{ marginRight: "20px" }}
       >
         Hedge
       </MenuItem>
-      {/* <MenuItem
+      <MenuItem
         selected={isPL}
-        onClick={() => changeRoute("/provide-liquidity")}
+        onClick={() => window.location="https://app.pods.finance/pool/0xA9ebb45e94853426905ceF187cD7ae41C7cFC34d#add"}
         style={{ marginRight: "20px" }}
       >
-        Provide Liquidity
+        Manage Liquidity ↗
       </MenuItem>
       <MenuItem
         selected={isPositions}
-        onClick={() => changeRoute("/positions")}
+        onClick={() => window.location="https://komodo.redstone.finance/#/token-sponsor/CSC=F"}
       >
-        Positions
-      </MenuItem> */}
+        Mint Commodities ↗
+      </MenuItem>
     </div>
   );
 };
