@@ -9,6 +9,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import history from "./utils/history";
 import ActionModal from "./components/ActionModal";
 import connectContracts from "./helpers/connectContracts";
+import { getOptions }  from "./helpers/getOptions";
+import { getPools } from "./helpers/getPools";
 
 const App = () => {
   const [account, setAccount] = useState({});
@@ -32,8 +34,19 @@ const App = () => {
   const handleConnectWallet = async () => {
     const res = await connectWallet(account.metamaskProvider);
     const contracts = await connectContracts(res);
+
+    const optionsContracts = [];
+    const poolContracs = [];
+    contracts.forEach((e) => {
+      optionsContracts.push(e.optionToken);
+      poolContracs.push(e.optionAMM);
+    })
+
+
+    const options = getOptions(account, optionsContracts)
+    const pools = getPools(account, poolContracs)
     setMarkets(contracts);
-    setAccount({ ...account, ...res });
+    setAccount({ ...account, ...res, ...options, ...pools });
   };
 
   const switchModal = () => {
